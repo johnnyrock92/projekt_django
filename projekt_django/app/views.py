@@ -6,6 +6,10 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+from django.utils import timezone
+
+from django.views import generic
+from .models import Country, Shop
 
 def home(request):
     """Renders the home page."""
@@ -44,3 +48,17 @@ def about(request):
             'year':datetime.now().year,
         }
     )
+
+class IndexView(generic.ListView):
+    template_name = 'app/index.html'
+    context_object_name = 'lista_krajow'
+
+    def get_queryset(self):
+        return Country.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+
+class DetailView(generic.DetailView):
+    model = Country
+    template_name = 'app/detail.html'
+
+    def get_queryset(self):
+        return Country.objects.filter(pub_date__lte=timezone.now())

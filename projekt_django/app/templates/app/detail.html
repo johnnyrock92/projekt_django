@@ -1,7 +1,7 @@
-{% extends "app/layout.html" %}
+﻿{% extends "app/layout.html" %}
 
 {% block content %}
-
+<!--
 <div class="jumbotron">
     <h1>Django</h1>
     <p class="lead">Django is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -29,17 +29,23 @@
         <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
     </div>
 </div>
+-->
+<h1>{{ country.country_name }}</h1>
+{% csrf_token %}
+<div class="row">
+{% for shop in country.shop_set.all %}
+    <!--<li><a href="#">{{ shop.shop_name }}</a></li>-->
 
-{% load static %}
-
-{% if lista_krajow %}
-    <ul>
-    {% for country in lista_krajow %}
-        <li><a href="{% url 'app:detail' country.id %}">{{ country.country_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Pusta lista krajow</p>
-{% endif %}
-
+        <div class="col-md-4 col-sm-6" style="background-color:yellow; text-align: center; ">
+            <div style="background-color:red; box-shadow: 0px 0px 20px #888888;">
+            <h2>{{ shop.shop_name }}</h2>
+            <p>
+                TESTOWY OPIS
+            </p>
+            <p><a class="btn btn-default" href="http://www.djangobook.com/en/2.0/index.html">TESTOWY PRZYCISK &raquo;</a></p>
+            </div>
+        </div>
+ 
+{% endfor %}
+       </div>
 {% endblock %}

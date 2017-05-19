@@ -3,7 +3,7 @@ Definition of urls for projekt_django.
 """
 
 from datetime import datetime
-from django.conf.urls import url
+from django.conf.urls import url #, include
 import django.contrib.auth.views
 
 import app.forms
@@ -15,6 +15,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
+    url(r'^app/', include('app.urls')),
     # Examples:
     url(r'^$', app.views.home, name='home'),
     url(r'^contact$', app.views.contact, name='contact'),
